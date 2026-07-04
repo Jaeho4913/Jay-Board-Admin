@@ -1,0 +1,29 @@
+# Maven build
+/target/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# STS
+.springBeans
+.sts4-cache/
+
+# IntelliJ
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Local / production config
+src/main/resources/application-local.properties
+src/main/resources/application-prod.properties
