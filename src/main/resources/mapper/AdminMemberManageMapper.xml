@@ -13,6 +13,11 @@
 			m.created_at AS createdAt,
 			(
 				SELECT COUNT(*)
+				FROM tb_board b
+				WHERE b.user_id = m.user_id
+			) AS boardCount,
+			(
+				SELECT COUNT(*)
 				FROM tb_board_reply r
 				WHERE r.user_id = m.user_id
 			) AS replyCount,
