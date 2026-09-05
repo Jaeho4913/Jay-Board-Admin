@@ -3,31 +3,97 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.boardadmin.mapper.AdminMemberManageMapper">
+<mapper
+	namespace="com.example.boardadmin.mapper.AdminMemberManageMapper">
 
-	<select id="findMemberList" resultType="com.example.boardadmin.dto.AdminMemberListDTO">
+	<select id="findMemberList"
+		resultType="com.example.boardadmin.dto.AdminMemberListDTO">
 		SELECT
-			m.user_id AS userId,
-			m.user_name AS userName,
-			m.email AS email,
-			m.created_at AS createdAt,
-			(
-				SELECT COUNT(*)
-				FROM tb_board b
-				WHERE b.user_id = m.user_id
-			) AS boardCount,
-			(
-				SELECT COUNT(*)
-				FROM tb_board_reply r
-				WHERE r.user_id = m.user_id
-			) AS replyCount,
-			(
-				SELECT COUNT(*)
-				FROM tb_board_like l
-				WHERE l.user_id = m.user_id
-			) AS likeCount
-			FROM members m
-			ORDER BY m.created_at DESC
+		m.user_id AS userId,
+		m.user_name AS userName,
+		m.email AS email,
+		m.created_at AS createdAt,
+		(
+		SELECT COUNT(*)
+		FROM tb_board b
+		WHERE b.user_id = m.user_id
+		) AS boardCount,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_reply r
+		WHERE r.user_id = m.user_id
+		) AS replyCount,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_like l
+		WHERE l.user_id = m.user_id
+		) AS likeCount
+		FROM members m
+		ORDER BY m.created_at DESC
+	</select>
+
+	<select id="findRecentBoardsByUserId"
+		resultType="com.example.boardadmin.dto.AdminMemberRecentBoardDTO">
+		SELECT
+		b.idx, b.title, b.created_at as createdAt,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_like l
+		WHERE l.board_idx = b.idx
+		) AS likeCount,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_reply r
+		WHERE r.board_idx = b.idx
+		) AS replyCount
+		FROM tb_board b
+		WHERE b.user_id = #{userId}
+		ORDER BY
+		b.created_at DESC, b.idx DESC
+		LIMIT 5
+	</select>
+
+	<select id="findRecentRepliesByUserId"
+		resultType="com.example.boardadmin.dto.AdminMemberRecentReplyDTO">
+		SELECT
+		r.reply_idx AS replyIdx,
+		r.board_idx AS boardIdx,
+		b.title AS boardTitle,
+		r.content,
+		r.created_at AS createdAt
+		FROM tb_board_reply r
+		JOIN tb_board b ON b.idx =
+		r.board_idx
+		WHERE r.user_id = #{userId}
+		ORDER BY r.created_at DESC,
+		r.reply_idx DESC
+		LIMIT 5
+	</select>
+
+	<select id="findMemberDetail"
+		resultType="com.example.boardadmin.dto.AdminMemberListDTO">
+		SELECT
+		m.user_id AS userId,
+		m.user_name AS userName,
+		m.email AS email,
+		m.created_at AS createdAt,
+		(
+		SELECT COUNT(*)
+		FROM tb_board b
+		WHERE b.user_id = m.user_id
+		) AS boardCount,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_like l
+		WHERE l.user_id = m.user_id
+		) AS likeCount,
+		(
+		SELECT COUNT(*)
+		FROM tb_board_reply r
+		WHERE r.user_id = m.user_id
+		) AS replyCount
+		FROM members m
+		WHERE m.user_id = #{userId}
 	</select>
 
 </mapper>

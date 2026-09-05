@@ -3,49 +3,58 @@
 		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		"https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.example.boardadmin.mapper.AdminDashboardMapper">
+<mapper
+	namespace="com.example.boardadmin.mapper.AdminDashboardMapper">
 
 	<select id="countTotalMember" resultType="int">
 		SELECT COUNT(*)
-		FROM members
+		FROM
+		members
 	</select>
 
 	<select id="countTotalBoard" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board
+		FROM
+		tb_board
 	</select>
 
 	<select id="countTotalReply" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board_reply
+		FROM
+		tb_board_reply
 	</select>
 
 	<select id="countTotalLike" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board_like
+		FROM
+		tb_board_like
 	</select>
 
 	<select id="countMonthMember" resultType="int">
 		SELECT COUNT(*)
-		FROM members
+		FROM
+		members
 		WHERE created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')
 	</select>
 
 	<select id="countMonthBoard" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board
+		FROM
+		tb_board
 		WHERE created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')
 	</select>
 
 	<select id="countMonthReply" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board_reply
+		FROM
+		tb_board_reply
 		WHERE created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')
 	</select>
 
 	<select id="countMonthLike" resultType="int">
 		SELECT COUNT(*)
-		FROM tb_board_like
+		FROM
+		tb_board_like
 		WHERE created_at >= DATE_FORMAT(NOW(), '%Y-%m-01')
 	</select>
 

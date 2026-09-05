@@ -2,20 +2,18 @@ package com.example.boardadmin.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
-
 import com.example.boardadmin.dto.AdminMemberListDTO;
-import com.example.boardadmin.mapper.AdminMemberManageMapper;
+import com.example.boardadmin.dto.AdminMemberRecentBoardDTO;
+import com.example.boardadmin.dto.AdminMemberRecentReplyDTO;
 
-import lombok.RequiredArgsConstructor;
+public interface AdminMemberManageService {
 
-@RequiredArgsConstructor
-@Service
-public class AdminMemberManageService {
+	List<AdminMemberListDTO> getMemberList();
 
-	private final AdminMemberManageMapper adminMemberManageMapper;
+	AdminMemberListDTO getMemberDetail(String userId);
 
-	public List<AdminMemberListDTO> getMemberList() {
-		return adminMemberManageMapper.findMemberList();
-	}
+	List<AdminMemberRecentBoardDTO> getRecentBoardsByUserId(String userId);
+
+	List<AdminMemberRecentReplyDTO> getRecentRepliesByUserId(String userId);
+
 }

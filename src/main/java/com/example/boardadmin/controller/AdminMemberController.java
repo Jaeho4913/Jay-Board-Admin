@@ -3,6 +3,7 @@ package com.example.boardadmin.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.boardadmin.service.AdminMemberManageService;
@@ -20,5 +21,12 @@ public class AdminMemberController {
 	public String memberList(Model model) {
 		model.addAttribute("memberList", adminMemberManageService.getMemberList());
 		return "admin/member/list";
+	}
+	@GetMapping("/{userId}")
+	public String memberDetail(@PathVariable("userId") String userId, Model model) {
+		model.addAttribute("member", adminMemberManageService.getMemberDetail(userId));
+		model.addAttribute("recentBoards", adminMemberManageService.getRecentBoardsByUserId(userId));
+		model.addAttribute("recentReplies", adminMemberManageService.getRecentRepliesByUserId(userId));
+		return "admin/member/detail";
 	}
 }
