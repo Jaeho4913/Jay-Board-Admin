@@ -116,13 +116,33 @@
 			<form action="/admin/members" method="get">
 				<input type="hidden" name="page" value="1">
 				<select name="size" onchange="this.form.requestSubmit()">
-					<option value="10" ${searchDTO.size == 10 ? 'selected' : ''}>10개씩 보기</option>
-					<option value="20" ${searchDTO.size == 20 ? 'selected' : ''}>20개씩 보기</option>
-					<option value="50" ${searchDTO.size == 50 ? 'selected' : ''}>50개씩 보기</option>
-					<option value="100" ${searchDTO.size == 100 ? 'selected' : ''}>100개씩 보기</option>
+					<option value="10" ${searchDTO.size==10 ? 'selected' : '' }>10개씩 보기</option>
+					<option value="20" ${searchDTO.size==20 ? 'selected' : '' }>20개씩 보기</option>
+					<option value="50" ${searchDTO.size==50 ? 'selected' : '' }>50개씩 보기</option>
+					<option value="100" ${searchDTO.size==100 ? 'selected' : '' }>100개씩 보기</option>
 				</select>
 			</form>
 
+			<nav aria-label="회원 목록 페이지 이동">
+				<c:if test="${totalPages > 0}">
+					<c:if test="${startPage > 1}">
+						<a href="/admin/members?page=${startPage -1}&amp;size=${searchDTO.size}">이전</a>
+					</c:if>
+					<c:forEach var="pageNo" begin="${startPage}" end="${endPage}">
+						<c:choose>
+							<c:when test="${pageNo == searchDTO.page}">
+								<strong>${pageNo}</strong>
+							</c:when>
+							<c:otherwise>
+								<a href="/admin/members?page=${pageNo}&amp;size=${searchDTO.size}">${pageNo}</a>
+							</c:otherwise>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${endPage < totalPages}">
+						<a href="/admin/members?page=${endPage + 1}&amp;size=${searchDTO.size}">다음</a>
+					</c:if>
+				</c:if>
+			</nav>
 
 		</body>
 

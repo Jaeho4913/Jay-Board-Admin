@@ -31,10 +31,14 @@ public class AdminMemberController {
 		if (totalCount % size != 0) {
 			totalPages++;
 		}
+		long startPage = ((searchDTO.getPage() - 1) / 10) * 10 + 1;
+		long endPage = Math.min(startPage + 9, totalPages);
 
 		model.addAttribute("searchDTO", searchDTO);
 		model.addAttribute("totalCount", totalCount);
 		model.addAttribute("totalPages", totalPages);
+		model.addAttribute("startPage", startPage);
+		model.addAttribute("endPage", endPage);
 
 		return "admin/member/list";
 	}
