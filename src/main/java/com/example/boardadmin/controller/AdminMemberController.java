@@ -1,11 +1,13 @@
 package com.example.boardadmin.controller;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.example.boardadmin.dto.AdminMemberSearchDTO;
 import com.example.boardadmin.service.AdminMemberManageService;
 
 import lombok.RequiredArgsConstructor;
@@ -18,10 +20,25 @@ public class AdminMemberController {
 	private final AdminMemberManageService adminMemberManageService;
 
 	@GetMapping
-	public String memberList(Model model) {
-		model.addAttribute("memberList", adminMemberManageService.getMemberList());
+	public String memberList(AdminMemberSearchDTO searchDTO, Model model) {
+
+		model.addAttribute("memberList", adminMemberManageService.getMemberList(searchDTO));
+
+		long totalCount = adminMemberManageService.getMemberCount();
+		int size = searchDTO.getSize();
+
+		long totalPages = totalCount / size;
+		if (totalCount % size != 0) {
+			totalPages++;
+		}
+
+		model.addAttribute("searchDTO", searchDTO);
+		model.addAttribute("totalCount", totalCount);
+		model.addAttribute("totalPages", totalPages);
+
 		return "admin/member/list";
 	}
+
 	@GetMapping("/{userId}")
 	public String memberDetail(@PathVariable("userId") String userId, Model model) {
 		model.addAttribute("member", adminMemberManageService.getMemberDetail(userId));

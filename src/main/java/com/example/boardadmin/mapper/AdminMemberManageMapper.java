@@ -8,10 +8,11 @@ import org.apache.ibatis.annotations.Param;
 import com.example.boardadmin.dto.AdminMemberListDTO;
 import com.example.boardadmin.dto.AdminMemberRecentBoardDTO;
 import com.example.boardadmin.dto.AdminMemberRecentReplyDTO;
+import com.example.boardadmin.dto.AdminMemberSearchDTO;
 
 @Mapper
 public interface AdminMemberManageMapper {
-	List<AdminMemberListDTO> findMemberList();
+	List<AdminMemberListDTO> findMemberList(AdminMemberSearchDTO searchDTO);
 	List<AdminMemberRecentBoardDTO> findRecentBoardsByUserId(
 		@Param("userId") String userId
 	);
@@ -21,5 +22,5 @@ public interface AdminMemberManageMapper {
 	AdminMemberListDTO findMemberDetail(
 		@Param("userId") String userID
 	);
-	
+	long countMembers();
 }

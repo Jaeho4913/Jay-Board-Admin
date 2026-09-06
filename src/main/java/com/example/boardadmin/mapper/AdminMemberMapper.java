@@ -8,4 +8,5 @@ import com.example.boardadmin.dto.AdminMemberDTO;
 @Mapper
 public interface AdminMemberMapper {
 	AdminMemberDTO findByAdminId(@Param("adminId") String adminId);
+	long countMembers();
 }
