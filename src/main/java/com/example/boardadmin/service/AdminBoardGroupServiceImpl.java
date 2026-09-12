@@ -23,4 +23,14 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 	public int createBoardGroup(AdminBoardGroupDTO boardGroup) {
 		return adminBoardGroupMapper.insert(boardGroup);
 	}
+	
+	@Override
+	public AdminBoardGroupDTO getBoardGroup(Integer boardGroupIdx) {
+		return adminBoardGroupMapper.findById(boardGroupIdx);
+	}
+	
+	@Override
+	public int updateBoardGroup(AdminBoardGroupDTO boardGroup) {
+		return adminBoardGroupMapper.update(boardGroup);
+	}
 }

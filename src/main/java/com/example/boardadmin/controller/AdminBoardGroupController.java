@@ -3,6 +3,7 @@ package com.example.boardadmin.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,6 +36,30 @@ public class AdminBoardGroupController {
 	@PostMapping
 	public String createBoardGroup(AdminBoardGroupDTO boardGroup) {
 		int result = adminBoardGroupService.createBoardGroup(boardGroup);
+		
+		if(result == 1) {
+			return "success";
+		}
+		
+		return "fail";
+	}
+	
+	@GetMapping("/{boardGroupIdx}/edit")
+	public String showEditForm(
+			@PathVariable("boardGroupIdx") Integer boardGroupIdx,
+			Model model) {
+		AdminBoardGroupDTO boardGroup = adminBoardGroupService.getBoardGroup(boardGroupIdx);
+		model.addAttribute("boardGroup", boardGroup);
+		return "admin/category/form";
+	}
+	
+	@ResponseBody
+	@PostMapping("/{boardGroupIdx}")
+	public String updateBoardGroup(
+			@PathVariable("boardGroupIdx") Integer boardGroupIdx,
+			AdminBoardGroupDTO boardGroup) {
+		boardGroup.setBoardGroupIdx(boardGroupIdx);
+		int result = adminBoardGroupService.updateBoardGroup(boardGroup);
 		
 		if(result == 1) {
 			return "success";

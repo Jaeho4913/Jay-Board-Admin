@@ -12,10 +12,10 @@
 			<div class="header">
 				<h2>게시판 관리</h2>
 			</div>
-				<form action="/admin/categories/new" method="get">
-					<button type="submit">게시판 생성</button>
-				</form>
-				<table>
+			<form action="/admin/categories/new" method="get">
+				<button type="submit">게시판 생성</button>
+			</form>
+			<table>
 				<thead>
 					<tr>
 						<th>번호</th>
@@ -23,6 +23,7 @@
 						<th>설명</th>
 						<th>정렬 순서</th>
 						<th>상태</th>
+						<th>관리</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -33,9 +34,11 @@
 							<td>${boardGroup.description}</td>
 							<td>${boardGroup.sortOrder}</td>
 							<td>${boardGroup.active}</td>
+							<td><a href="/admin/categories/${boardGroup.boardGroupIdx}/edit">수정</a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
-				</table>
+			</table>
 		</body>
+
 		</html>

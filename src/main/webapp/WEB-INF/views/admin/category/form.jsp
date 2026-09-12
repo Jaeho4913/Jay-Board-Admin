@@ -14,23 +14,28 @@
 			</div>
 			<form id="boardGroupForm" action="/admin/categories" method="post">
 
+					<input type="hidden" name="boardGroupIdx" value="<c:out value='${boardGroup.boardGroupIdx}' />">
+					
 				<label>
 					게시판명:
-					<input type="text" name="boardGroupName" maxlength="50" required>
+					<input type="text" name="boardGroupName" value="<c:out value='${boardGroup.boardGroupName}' />"
+						maxlength="50" required>
 				</label>
 				<label>
 					설명:
-					<textarea name="description" maxlength="255"></textarea>
+					<textarea name="description"
+						maxlength="255"><c:out value='${boardGroup.description}' /></textarea>
 				</label>
 				<label>
 					정렬 순서:
-					<input type="number" name="sortOrder" min="0" required>
+					<input type="number" name="sortOrder" value="<c:out value='${boardGroup.sortOrder}' />" min="0"
+						required>
 				</label>
 				<label>
 					상태:
 					<select name="active">
-						<option value="true">활성</option>
-						<option value="false">비활성</option>
+						<option value="true" ${boardGroup.active ? 'selected' : '' }>활성</option>
+						<option value="false" ${boardGroup.active==false ? 'selected' : '' }>비활성</option>
 					</select>
 				</label>
 

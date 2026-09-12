@@ -7,4 +7,6 @@ import com.example.boardadmin.dto.AdminBoardGroupDTO;
 public interface AdminBoardGroupService {
 	List<AdminBoardGroupDTO> getBoardGroupList();
 	int createBoardGroup(AdminBoardGroupDTO boardGroup);
+	AdminBoardGroupDTO getBoardGroup(Integer boardGroupIdx);
+	int updateBoardGroup(AdminBoardGroupDTO boardGroup);
 }

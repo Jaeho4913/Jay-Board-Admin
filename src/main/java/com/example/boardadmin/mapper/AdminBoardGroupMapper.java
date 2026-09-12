@@ -10,4 +10,6 @@ import com.example.boardadmin.dto.AdminBoardGroupDTO;
 public interface AdminBoardGroupMapper {
 	List<AdminBoardGroupDTO> findAll();
 	int insert(AdminBoardGroupDTO boardGroup);
+	AdminBoardGroupDTO findById(Integer boardGroupIdx);
+	int update(AdminBoardGroupDTO boardGroup);
 }
