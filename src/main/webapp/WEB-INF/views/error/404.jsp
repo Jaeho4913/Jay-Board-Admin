@@ -6,18 +6,18 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>회원을 찾을 수 없습니다</title>
+			<title>요청한 정보를 찾을 수 없습니다</title>
 		</head>
 
 		<body>
 			<main>
-				<h1>회원을 찾을 수 없습니다</h1>
+				<h1>요청한 정보를 찾을 수 없습니다</h1>
 				<p>
 					<c:out value="${message}" />
 				</p>
 
-				<c:url var="memberListUrl" value="/admin/members" />
-				<a href="${memberListUrl}">회원 목록으로 돌아가기</a>
+				<c:url var="adminHomeUrl" value="/admin" />
+				<a href="${adminHomeUrl}">관리자 홈으로 돌아가기</a>
 			</main>
 		</body>
 

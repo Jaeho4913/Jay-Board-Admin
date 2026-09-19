@@ -5,17 +5,17 @@
 
 		<head>
 			<meta charset="UTF-8">
-			<title>게시판 생성</title>
+			<title>${empty boardGroup.boardGroupIdx ? '게시판 생성' : '게시판 수정'}</title>
 		</head>
 
 		<body>
 			<div class="header">
-				<h2>게시판 생성</h2>
+				<h2>${empty boardGroup.boardGroupIdx ? '게시판 생성' : '게시판 수정'}</h2>
 			</div>
 			<form id="boardGroupForm" action="/admin/categories" method="post">
 
-					<input type="hidden" name="boardGroupIdx" value="<c:out value='${boardGroup.boardGroupIdx}' />">
-					
+				<input type="hidden" name="boardGroupIdx" value="<c:out value='${boardGroup.boardGroupIdx}' />">
+
 				<label>
 					게시판명:
 					<input type="text" name="boardGroupName" value="<c:out value='${boardGroup.boardGroupName}' />"
@@ -23,8 +23,7 @@
 				</label>
 				<label>
 					설명:
-					<textarea name="description"
-						maxlength="255"><c:out value='${boardGroup.description}' /></textarea>
+					<textarea name="description" maxlength="255"><c:out value='${boardGroup.description}' /></textarea>
 				</label>
 				<label>
 					정렬 순서:
@@ -39,7 +38,7 @@
 					</select>
 				</label>
 
-				<button type="submit">등록</button>
+				<button type="submit">${empty boardGroup.boardGroupIdx ? '등록' : '수정'}</button>
 				<a href="/admin/categories">취소</a>
 			</form>
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
