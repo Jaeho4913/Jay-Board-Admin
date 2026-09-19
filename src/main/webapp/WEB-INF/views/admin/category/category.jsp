@@ -30,15 +30,21 @@
 					<c:forEach var="boardGroup" items="${boardGroupList}">
 						<tr>
 							<td>${boardGroup.boardGroupIdx}</td>
-							<td>${boardGroup.boardGroupName}</td>
-							<td>${boardGroup.description}</td>
+							<td><c:out value="${boardGroup.boardGroupName}" /></td>
+							<td><c:out value="${boardGroup.description}"/></td>
 							<td>${boardGroup.sortOrder}</td>
 							<td>${boardGroup.active}</td>
-							<td><a href="/admin/categories/${boardGroup.boardGroupIdx}/edit">수정</a></td>
+							<td>
+								<a href="/admin/categories/${boardGroup.boardGroupIdx}/edit">수정</a>
+								<button type="button" class="delete-board-group"
+									data-board-group-idx="${boardGroup.boardGroupIdx}">삭제</button>
+							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+			<script src="/js/admin/category-list.js"></script>
 		</body>
 
 		</html>

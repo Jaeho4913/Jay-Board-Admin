@@ -52,14 +52,30 @@
 		FROM tb_board_group
 		WHERE board_group_idx = #{boardGroupIdx}
 	</select>
-	
+
 	<update id="update">
-	UPDATE tb_board_group
-	SET board_group_name = #{boardGroupName},
-	description = #{description},
-	sort_order = #{sortOrder},
-	is_active = #{active}
-	WHERE board_group_idx = #{boardGroupIdx}
+		UPDATE tb_board_group
+		SET board_group_name =
+		#{boardGroupName},
+		description = #{description},
+		sort_order =
+		#{sortOrder},
+		is_active = #{active}
+		WHERE board_group_idx =
+		#{boardGroupIdx}
 	</update>
+
+	<select id="countBoardByGroupIdx" resultType="long">
+		SELECT COUNT(*)
+		FROM tb_board
+		WHERE board_group_idx = #{boardGroupIdx}
+	</select>
+
+	<delete id="deleteById">
+		DELETE
+		FROM tb_board_group
+		WHERE board_group_idx =
+		#{boardGroupIdx}
+	</delete>
 
 </mapper>

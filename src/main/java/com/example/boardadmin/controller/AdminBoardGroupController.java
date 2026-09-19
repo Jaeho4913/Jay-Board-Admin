@@ -67,4 +67,15 @@ public class AdminBoardGroupController {
 		
 		return "fail";
 	}
+	
+	@ResponseBody
+	@PostMapping("/{boardGroupIdx}/delete")
+	public String deleteBoardGroup(@PathVariable("boardGroupIdx") Integer boardGroupIdx) {
+		int result = adminBoardGroupService.deleteBoardGroup(boardGroupIdx);
+		
+		if(result == 1) {
+			return "success";
+		}
+		return "fail";
+	}
 }

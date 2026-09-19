@@ -9,4 +9,5 @@ public interface AdminBoardGroupService {
 	int createBoardGroup(AdminBoardGroupDTO boardGroup);
 	AdminBoardGroupDTO getBoardGroup(Integer boardGroupIdx);
 	int updateBoardGroup(AdminBoardGroupDTO boardGroup);
+	int deleteBoardGroup(Integer boardGroupIdx);
 }
