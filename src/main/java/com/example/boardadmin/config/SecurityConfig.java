@@ -66,7 +66,7 @@ public class SecurityConfig {
 					.logoutUrl("/admin/logout")
 					.logoutSuccessUrl("/admin/login?logout=true")
 					.invalidateHttpSession(true)
-					.deleteCookies("JSESSIONID")
+					.deleteCookies("ADMINSESSIONID")
 					.permitAll()
 				);
 
