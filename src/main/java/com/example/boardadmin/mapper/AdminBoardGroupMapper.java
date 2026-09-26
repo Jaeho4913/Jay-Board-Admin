@@ -14,4 +14,5 @@ public interface AdminBoardGroupMapper {
 	int update(AdminBoardGroupDTO boardGroup);
 	long countBoardByGroupIdx(Integer boardGroupIdx);
 	int deleteById(Integer boardGroupIdx);
+	long countBoardWithoutImage(Integer boardGroupIdx);
 }

@@ -13,4 +13,5 @@ public class AdminBoardGroupDTO {
 	private Boolean active;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private String boardType;
 }
