@@ -41,6 +41,12 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 		if (active == null) {
 			throw new IllegalArgumentException("활성 상태를 선택해주세요.");
 		}
+		
+		String boardType = boardGroup.getBoardType();
+		
+		if (!"NORMAL".equals(boardType) && !"GALLERY".equals(boardType)) {
+			throw new IllegalArgumentException("올바른 게시판 유형을 선택해주세요.");
+		}
 	}
 
 	@Override
@@ -72,6 +78,14 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 		getBoardGroup(boardGroup.getBoardGroupIdx());
 		validateBoardGroup(boardGroup);
 		
+		if ("GALLERY".equals(boardGroup.getBoardType())) {
+			long withoutImageCount = adminBoardGroupMapper.countBoardWithoutImage(boardGroup.getBoardGroupIdx());
+			
+			if(withoutImageCount > 0) {
+				throw new IllegalArgumentException("이미지가 없는 게시글이 있어 갤러리형으로 변경 불가능합니다.");
+			}
+		}
+			
 		return adminBoardGroupMapper.update(boardGroup);
 	}
 

@@ -37,6 +37,14 @@
 						<option value="false" ${boardGroup.active==false ? 'selected' : '' }>비활성</option>
 					</select>
 				</label>
+				<label>
+					게시판 유형:
+					<select name="boardType">
+						<option value="NORMAL" ${empty boardGroup.boardType or boardGroup.boardType eq 'NORMAL'
+							? 'selected' : '' }>일반형</option>
+						<option value="GALLERY" ${boardGroup.boardType eq 'GALLERY' ? 'selected' : '' }>갤러리형</option>
+					</select>
+				</label>
 
 				<button type="submit">${empty boardGroup.boardGroupIdx ? '등록' : '수정'}</button>
 				<a href="/admin/categories">취소</a>

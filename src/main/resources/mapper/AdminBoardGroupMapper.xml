@@ -16,7 +16,8 @@
 		is_active AS
 		active,
 		created_at AS createdAt,
-		updated_at AS updatedAt
+		updated_at AS updatedAt,
+		board_type AS boardType
 		FROM
 		tb_board_group
 		ORDER BY sort_order ASC, board_group_idx ASC
@@ -29,13 +30,15 @@
 		board_group_name,
 		description,
 		sort_order,
-		is_active
+		is_active,
+		board_type
 		)
 		VALUES(
 		#{boardGroupName},
 		#{description},
 		#{sortOrder},
-		#{active}
+		#{active},
+		#{boardType}
 		)
 	</insert>
 
@@ -47,22 +50,20 @@
 		boardGroupName,
 		description,
 		sort_order AS sortOrder,
-		is_active AS
-		active
+		is_active AS active,
+		board_type AS boardType
 		FROM tb_board_group
 		WHERE board_group_idx = #{boardGroupIdx}
 	</select>
 
 	<update id="update">
 		UPDATE tb_board_group
-		SET board_group_name =
-		#{boardGroupName},
+		SET board_group_name = #{boardGroupName},
 		description = #{description},
-		sort_order =
-		#{sortOrder},
-		is_active = #{active}
-		WHERE board_group_idx =
-		#{boardGroupIdx}
+		sort_order = #{sortOrder},
+		is_active = #{active},
+		board_type = #{boardType}
+		WHERE board_group_idx = #{boardGroupIdx}
 	</update>
 
 	<select id="countBoardByGroupIdx" resultType="long">
@@ -77,5 +78,12 @@
 		WHERE board_group_idx =
 		#{boardGroupIdx}
 	</delete>
+	
+	<select id="countBoardWithoutImage" resultType="long">
+		SELECT COUNT(*)
+		FROM tb_board b
+		LEFT JOIN tb_board_image i ON b.idx = i.board_idx
+		WHERE b.board_group_idx  = #{boardGroupIdx} AND i.image_idx is null
+	</select>
 
 </mapper>
