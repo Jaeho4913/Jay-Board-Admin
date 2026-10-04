@@ -41,10 +41,10 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 		if (active == null) {
 			throw new IllegalArgumentException("활성 상태를 선택해주세요.");
 		}
-		
+
 		String boardType = boardGroup.getBoardType();
-		
-		if (!"NORMAL".equals(boardType) && !"GALLERY".equals(boardType)) {
+
+		if (!"NORMAL".equals(boardType) && !"GALLERY".equals(boardType) && !"LIVE".equals(boardType)) {
 			throw new IllegalArgumentException("올바른 게시판 유형을 선택해주세요.");
 		}
 	}
@@ -57,7 +57,7 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 	@Override
 	public int createBoardGroup(AdminBoardGroupDTO boardGroup) {
 		validateBoardGroup(boardGroup);
-		
+
 		return adminBoardGroupMapper.insert(boardGroup);
 	}
 
@@ -75,18 +75,35 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 
 	@Override
 	public int updateBoardGroup(AdminBoardGroupDTO boardGroup) {
-		getBoardGroup(boardGroup.getBoardGroupIdx());
+		AdminBoardGroupDTO originalBoardGroup = getBoardGroup(boardGroup.getBoardGroupIdx());
 		validateBoardGroup(boardGroup);
-		
+
+		validateBoardTypeChange(originalBoardGroup, boardGroup);
+
+		return adminBoardGroupMapper.update(boardGroup);
+
+	}
+
+	private void validateBoardTypeChange(AdminBoardGroupDTO originalBoardGroup, AdminBoardGroupDTO boardGroup) {
+		if (originalBoardGroup.getBoardType().equals(boardGroup.getBoardType())) {
+			return;
+		}
+		if ("LIVE".equals(boardGroup.getBoardType()) || "LIVE".equals(originalBoardGroup.getBoardType())) {
+			long boardCount = adminBoardGroupMapper.countBoardByGroupIdx(originalBoardGroup.getBoardGroupIdx());
+			long livePostCount = adminBoardGroupMapper.countLivePostByGroupIdx(originalBoardGroup.getBoardGroupIdx());
+
+			if (boardCount > 0 || livePostCount > 0) {
+				throw new IllegalArgumentException("게시글이 있는 게시판은 다른 유형으로 변경할 수 없습니다.");
+			}
+
+		}
 		if ("GALLERY".equals(boardGroup.getBoardType())) {
 			long withoutImageCount = adminBoardGroupMapper.countBoardWithoutImage(boardGroup.getBoardGroupIdx());
-			
-			if(withoutImageCount > 0) {
+
+			if (withoutImageCount > 0) {
 				throw new IllegalArgumentException("이미지가 없는 게시글이 있어 갤러리형으로 변경 불가능합니다.");
 			}
 		}
-			
-		return adminBoardGroupMapper.update(boardGroup);
 	}
 
 	@Override
@@ -94,8 +111,9 @@ public class AdminBoardGroupServiceImpl implements AdminBoardGroupService {
 		getBoardGroup(boardGroupIdx);
 
 		long boardCount = adminBoardGroupMapper.countBoardByGroupIdx(boardGroupIdx);
-
-		if (boardCount > 0) {
+		long livePostCount = adminBoardGroupMapper.countLivePostByGroupIdx(boardGroupIdx);
+		
+		if (boardCount > 0 || livePostCount > 0) {
 			return 0;
 		}
 		return adminBoardGroupMapper.deleteById(boardGroupIdx);

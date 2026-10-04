@@ -85,5 +85,11 @@
 		LEFT JOIN tb_board_image i ON b.idx = i.board_idx
 		WHERE b.board_group_idx  = #{boardGroupIdx} AND i.image_idx is null
 	</select>
+	
+	<select id="countLivePostByGroupIdx" resultType="long">
+		SELECT COUNT(*)
+		FROM tb_live_post
+		WHERE board_group_idx = #{boardGroupIdx}
+	</select>
 
 </mapper>

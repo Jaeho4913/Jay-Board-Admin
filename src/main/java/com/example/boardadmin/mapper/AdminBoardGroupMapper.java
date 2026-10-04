@@ -15,4 +15,5 @@ public interface AdminBoardGroupMapper {
 	long countBoardByGroupIdx(Integer boardGroupIdx);
 	int deleteById(Integer boardGroupIdx);
 	long countBoardWithoutImage(Integer boardGroupIdx);
+	long countLivePostByGroupIdx(Integer boardGroupIdx);
 }

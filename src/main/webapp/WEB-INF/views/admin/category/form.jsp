@@ -43,6 +43,7 @@
 						<option value="NORMAL" ${empty boardGroup.boardType or boardGroup.boardType eq 'NORMAL'
 							? 'selected' : '' }>일반형</option>
 						<option value="GALLERY" ${boardGroup.boardType eq 'GALLERY' ? 'selected' : '' }>갤러리형</option>
+						<option value="LIVE" ${boardGroup.boardType eq 'LIVE' ? 'selected' : ''}>라이브형</option> 
 					</select>
 				</label>
 

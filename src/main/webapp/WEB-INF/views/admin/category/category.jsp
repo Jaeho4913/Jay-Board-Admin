@@ -23,6 +23,7 @@
 						<th>설명</th>
 						<th>정렬 순서</th>
 						<th>상태</th>
+						<th>유형</th>
 						<th>관리</th>
 					</tr>
 				</thead>
@@ -34,6 +35,7 @@
 							<td><c:out value="${boardGroup.description}"/></td>
 							<td>${boardGroup.sortOrder}</td>
 							<td>${boardGroup.active}</td>
+							<td><c:out value="${boardGroup.boardType}" /></td>
 							<td>
 								<a href="/admin/categories/${boardGroup.boardGroupIdx}/edit">수정</a>
 								<button type="button" class="delete-board-group"
